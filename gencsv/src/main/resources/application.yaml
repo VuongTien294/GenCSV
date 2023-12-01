@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://10.0.0.192:5432/postgres?useSSL=false&useUnicode=true&characterEncoding=UTF-8}
+    username: postgres
+    password: oLkF38XeQN
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
