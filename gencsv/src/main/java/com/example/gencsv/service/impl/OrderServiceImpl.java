@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public class OrderServiceImpl implements CommandLineRunner {
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
 
-    String fileCsvLink = "C:/Users/EdsoLabs/Desktop/FakeData/createOrderFake.csv";
+    String fileCsvLink = "C:/Users/HLC2023/Desktop/csv/createOrderFake.csv";
 
     @Override
     public void run(String... args) throws Exception {
@@ -42,16 +43,12 @@ public class OrderServiceImpl implements CommandLineRunner {
         System.out.println("Nhập number Product in Order:");
         int numberProductInOrder = sc.nextInt();
 
-        List<WareHouseProduct> list = warehouseRepository.listWhereHasProduct();
+        List<WareHouseProduct> listWhereHasProduct = warehouseRepository.listWhereHasProduct();
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileCsvLink));
 //        CSVPrinter csvPrinter = new CSVPrinter(writer,CSVFormat.DEFAULT.withHeader("shipping_address_id", "status", "type", "items"));
-        CSVPrinter csvPrinter = new CSVPrinter(writer,CSVFormat.DEFAULT);
-
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-
+        CSVPrinter csvPrinter = new CSVPrinter(writer,CSVFormat.INFORMIX_UNLOAD_CSV);
         Gson gson = new Gson();
-
 
         for (int i = 0; i < slBanGhi; i++) {
 //            WareHouseProduct wareHouseProduct;
@@ -60,12 +57,17 @@ public class OrderServiceImpl implements CommandLineRunner {
 
             CreateItem item = CreateItem.builder()
                     .product_id(productId)
-//                    .agent_customer_id(null)
                     .number_product_in_order(numberProductInOrder)
                     .build();
 
-            csvPrinter.printRecord(shippingAddressId, "wait_for_pay", "buy_auto", gson.toJson(item));
-            csvPrinter.printRecord(shippingAddressId, "wait_for_pay", "buy_auto", gson.toJson(item));
+            String gsonItem = gson.toJson(item);
+
+            List<String> list = new ArrayList<>();
+
+            list.add(gsonItem);
+
+//            csvPrinter.printRecord(shippingAddressId,"waiting_for_pay", "buy_auto", list);
+            csvPrinter.printRecord(shippingAddressId, list);
         }
         csvPrinter.flush();
     }
