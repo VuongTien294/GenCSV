@@ -2,6 +2,7 @@ package com.example.gencsv.service.impl;
 
 import com.example.gencsv.Entity.WareHouseProduct;
 import com.example.gencsv.Model.CreateItem;
+import com.example.gencsv.repository.OrderRepository;
 import com.example.gencsv.repository.ProductRepository;
 import com.example.gencsv.repository.WarehouseRepository;
 import com.example.gencsv.service.OrderService;
@@ -28,8 +29,10 @@ import java.util.Scanner;
 public class OrderServiceImpl implements CommandLineRunner {
     private final ProductRepository productRepository;
     private final WarehouseRepository warehouseRepository;
+    private final OrderRepository orderRepository;
 
-    String fileCsvLink = "C:/Users/HLC2023/Desktop/csv/createOrderFake.csv";
+//    String fileCsvLink = "C:/Users/HLC2023/Desktop/csv/createOrderFake.csv";
+    String fileCsvLink = "C:/Users/EdsoLabs/Desktop/FakeData/createOrderFake.csv";
 
     @Override
     public void run(String... args) throws Exception {
@@ -43,7 +46,10 @@ public class OrderServiceImpl implements CommandLineRunner {
         System.out.println("Nhập number Product in Order:");
         int numberProductInOrder = sc.nextInt();
 
-        List<WareHouseProduct> listWhereHasProduct = warehouseRepository.listWhereHasProduct();
+//        List<WareHouseProduct> listWhereHasProduct = warehouseRepository.listWhereHasProduct();
+
+        int orderId = orderRepository.findMaxId();
+        int z = orderId;
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileCsvLink));
 //        CSVPrinter csvPrinter = new CSVPrinter(writer,CSVFormat.DEFAULT.withHeader("shipping_address_id", "status", "type", "items"));
@@ -61,13 +67,13 @@ public class OrderServiceImpl implements CommandLineRunner {
                     .build();
 
             String gsonItem = gson.toJson(item);
-
             List<String> list = new ArrayList<>();
-
             list.add(gsonItem);
+            z++;
+            System.out.println(z);
 
 //            csvPrinter.printRecord(shippingAddressId,"waiting_for_pay", "buy_auto", list);
-            csvPrinter.printRecord(shippingAddressId, list);
+            csvPrinter.printRecord(productId, numberProductInOrder, shippingAddressId, list, z);
         }
         csvPrinter.flush();
     }

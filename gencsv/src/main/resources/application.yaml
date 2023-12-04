@@ -1,8 +1,21 @@
+#MT Dev
+#spring:
+#  datasource:
+#    url: ${DB_URL:jdbc:postgresql://10.0.0.192:5432/postgres?useSSL=false&useUnicode=true&characterEncoding=UTF-8}
+#    username: postgres
+#    password: oLkF38XeQN
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#    show-sql: true
+
+#Mt Test Performance
 spring:
   datasource:
-    url: ${DB_URL:jdbc:postgresql://10.0.0.192:5432/postgres?useSSL=false&useUnicode=true&characterEncoding=UTF-8}
+    url: ${DB_URL:jdbc:postgresql://10.0.40.89:30703/postgres?useSSL=false&useUnicode=true&characterEncoding=UTF-8}
     username: postgres
-    password: oLkF38XeQN
+    password: MGnXWc0F!Hl@Xf8U6fdkrIvyF6G0ljgU
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
