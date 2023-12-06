@@ -28,20 +28,20 @@ public class OrderServiceImpl implements CommandLineRunner {
     private final WarehouseRepository warehouseRepository;
     private final OrderRepository orderRepository;
 
-    String fileCsvLink = "C:/Users/HLC2023/Desktop/csv/createOrderFake.csv";
-//    String fileCsvLink = "C:/Users/EdsoLabs/Desktop/FakeData/createOrderFake.csv";
+//    String fileCsvLink = "C:/Users/HLC2023/Desktop/csv/createOrderFake.csv";
+    String fileCsvLink = "C:/Users/EdsoLabs/Desktop/FakeData/createOrderFake.csv";
 
     @Override
     public void run(String... args) throws Exception {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nhập số lượng bản ghi muốn fake :");
         int slBanGhi = sc.nextInt(); //1
-        System.out.println("Nhập số shipping address id :");
-        int shippingAddressId = sc.nextInt(); //11 ứng với phonenumber = 0333333334
         System.out.println("Nhập Product Id:");
         int productId = sc.nextInt(); //1
         System.out.println("Nhập number Product in Order:");
         int numberProductInOrder = sc.nextInt(); //1
+        System.out.println("Nhập số shipping address id :");
+        int shippingAddressId = sc.nextInt(); //11 ứng với phonenumber = 0333333334
 
 //        List<WareHouseProduct> listWhereHasProduct = warehouseRepository.listWhereHasProduct();
 
@@ -52,7 +52,6 @@ public class OrderServiceImpl implements CommandLineRunner {
         }else {
             z = orderId.get();
         }
-
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileCsvLink));
 //        CSVPrinter csvPrinter = new CSVPrinter(writer,CSVFormat.DEFAULT.withHeader("shipping_address_id", "status", "type", "items"));
