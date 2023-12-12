@@ -36,7 +36,7 @@ public class UserServiceImpl implements CommandLineRunner {
             String phone = "0712" + i;
             String passWord = "123456a@";
 
-            csvPrinter.printRecord(phone, passWord);
+            csvPrinter.printRecord( phone, passWord);
             System.out.println(i);
         }
         csvPrinter.flush();
