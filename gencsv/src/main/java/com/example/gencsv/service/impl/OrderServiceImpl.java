@@ -45,13 +45,13 @@ public class OrderServiceImpl implements CommandLineRunner {
 
 //        List<WareHouseProduct> listWhereHasProduct = warehouseRepository.listWhereHasProduct();
 
-        Optional<Integer> orderId = orderRepository.findMaxId();
-        int z ;
-        if(Objects.isNull(orderId) || orderId.isEmpty()){
-           z = 0;
-        }else {
-            z = orderId.get();
-        }
+//        Optional<Integer> orderId = orderRepository.findMaxId();
+//        int z ;
+//        if(Objects.isNull(orderId) || orderId.isEmpty()){
+//           z = 0;
+//        }else {
+//            z = orderId.get();
+//        }
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileCsvLink));
 //        CSVPrinter csvPrinter = new CSVPrinter(writer,CSVFormat.DEFAULT.withHeader("shipping_address_id", "status", "type", "items"));
@@ -71,11 +71,13 @@ public class OrderServiceImpl implements CommandLineRunner {
             String gsonItem = gson.toJson(item);
             List<String> list = new ArrayList<>();
             list.add(gsonItem);
-            z++;
-            System.out.println(z);
+//            z++;
+//            System.out.println(z);
 
 //            csvPrinter.printRecord(shippingAddressId,"waiting_for_pay", "buy_auto", list);
-            csvPrinter.printRecord(productId, numberProductInOrder, shippingAddressId, list, z);
+//            csvPrinter.printRecord(productId, numberProductInOrder, shippingAddressId, list, z);
+            csvPrinter.printRecord(productId, numberProductInOrder, shippingAddressId, list);
+            System.out.println(i);
         }
         csvPrinter.flush();
     }
