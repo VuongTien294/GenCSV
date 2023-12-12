@@ -43,26 +43,11 @@ public class OrderServiceImpl implements CommandLineRunner {
         System.out.println("Nhập số shipping address id :");
         int shippingAddressId = sc.nextInt(); //11 ứng với phonenumber = 0333333334
 
-//        List<WareHouseProduct> listWhereHasProduct = warehouseRepository.listWhereHasProduct();
-
-//        Optional<Integer> orderId = orderRepository.findMaxId();
-//        int z ;
-//        if(Objects.isNull(orderId) || orderId.isEmpty()){
-//           z = 0;
-//        }else {
-//            z = orderId.get();
-//        }
-
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileCsvLink));
-//        CSVPrinter csvPrinter = new CSVPrinter(writer,CSVFormat.DEFAULT.withHeader("shipping_address_id", "status", "type", "items"));
         CSVPrinter csvPrinter = new CSVPrinter(writer,CSVFormat.INFORMIX_UNLOAD_CSV);
         Gson gson = new Gson();
 
-        for (int i = 0; i < slBanGhi; i++) {
-//            WareHouseProduct wareHouseProduct;
-//            Random random = new Random();
-//            wareHouseProduct = list.get(random.nextInt(list.size()));
-
+        for (int i = 1; i <= slBanGhi; i++) {
             CreateItem item = CreateItem.builder()
                     .product_id(productId)
                     .number_product_in_order(numberProductInOrder)
@@ -71,11 +56,7 @@ public class OrderServiceImpl implements CommandLineRunner {
             String gsonItem = gson.toJson(item);
             List<String> list = new ArrayList<>();
             list.add(gsonItem);
-//            z++;
-//            System.out.println(z);
 
-//            csvPrinter.printRecord(shippingAddressId,"waiting_for_pay", "buy_auto", list);
-//            csvPrinter.printRecord(productId, numberProductInOrder, shippingAddressId, list, z);
             csvPrinter.printRecord(productId, numberProductInOrder, shippingAddressId, list);
             System.out.println(i);
         }
